@@ -1,0 +1,14 @@
+@if (isOpen) {
+  <div class="top-0 left-0 w-screen h-screen fixed flex justify-center items-center z-30">
+    <div class="bg-gray-200 rounded-lg p-6 w-auto z-30 relative overflow-auto max-h-[90vh]">
+      <button class="absolute top-2 right-2 text-gray-600 hover:text-red-800" (click)="onCloseModal()">
+        &times; <!-- Símbolo de cierre -->
+      </button>
+      <ng-content></ng-content>
+    </div>
+    <div class="flex h-screen w-screen absolute bg-gray-900/60"></div>
+  </div>
+  }
+ 
+
+  

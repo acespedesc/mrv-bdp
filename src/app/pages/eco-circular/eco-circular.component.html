@@ -1,0 +1,117 @@
+<div class="py-1">
+    <div class="mx-auto sm:px-6 lg:px-8 mb-6">
+        <h2 class="mx-4 pb-6 text-3xl font-bold text-gray-800">
+            Economia Circular
+        </h2>
+        <div class="border-t-4 border-t-indigo-500 -mt-4 ml-5 w-64"></div>
+    </div>
+    <div class="mx-auto sm:px-6 lg:px-8">
+        <div
+            class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4 dark:bg-gray-800/50 dark:bg-gradient-to-bl">
+            <div class="flex items-center justify-between dark:text-gray-400 m-4">
+                <div class="space-x-8 mb-2">
+                    <button type="button" (click)="openModal()"
+                        class="focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-blue-500 hover:bg-blue-600 focus:outline-none rounded">
+                        <p class="text-sm font-medium leading-none text-white"> Iniciar</p>
+                    </button>
+                </div>
+            </div>
+            <div class="flex space-x-4">
+                <input matInput placeholder="Filtro por ID" [(ngModel)]="filterId" (ngModelChange)="applyFilter()">
+
+            </div>
+            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                <table mat-table [dataSource]="dataSource"
+                    class="no-border-table w-full divide-y divide-gray-200 table-auto">
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef> Id </th>
+                        <td mat-cell *matCellDef="let circular"> {{ circular.id }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="nro_solicitud">
+                        <th mat-header-cell *matHeaderCellDef> Nro Solicitud </th>
+                        <td mat-cell *matCellDef="let circular"> {{ circular.nro_solicitud }} </td>
+                    </ng-container>respaldo
+                    <ng-container matColumnDef="respaldo">
+                        <th mat-header-cell *matHeaderCellDef> Respaldo </th>
+                        <td mat-cell *matCellDef="let circular"> {{ circular.respaldo }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="objetivo_operacion">
+                        <th mat-header-cell *matHeaderCellDef> Objetivo Operacion </th>
+                        <td mat-cell *matCellDef="let circular"> {{ circular.objetivo_operacion }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="ctd_residuos_rec">
+                        <th mat-header-cell *matHeaderCellDef> Cantidad residuos reciclados </th>
+                        <td mat-cell *matCellDef="let circular"> {{ circular.ctd_residuos_rec }} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="emision_gei_evi">
+                        <th mat-header-cell *matHeaderCellDef> Emision gei evitados</th>
+                        <td mat-cell *matCellDef="let circular"> {{ circular.emision_gei_evi }} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef> Opciones </th>
+                        <td mat-cell *matCellDef="let circular">
+                            <div class="flex items-center space-x-2">
+                                <div class="group relative inline-block whitespace-nowrap">
+                                    <button (click)="openModalDoc(circular.id)"
+                                        class="bg-stone-700 w-8 h-8 rounded-full hover:bg-stone-500 flex items-center justify-center ml-2">
+                                        <i class=" text-white">
+                                            <svg class="h-5 w-5 text-white-500" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+                                                <polyline points="13 2 13 9 20 9" />
+                                            </svg>
+                                            <span role="tooltip"
+                                                class="pointer-events-none absolute z-50 inline-flex items-center justify-center rounded-md px-3 py-1 font-semibold opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 bg-stone-50 text-stone-700 min-h-7 text-sm left-1/2 -translate-x-1/2 after:absolute after:block after:size-0 after:border-8 after:border-transparent after:border-t-stone-50 after:-bottom-[0.95rem] after:left-1/2 after:-translate-x-1/2 top-[-2.5rem]">
+                                                Ver Doc.
+                                            </span>
+                                        </i>
+                                    </button>
+                                </div>
+                                <div class="group relative">
+                                    <button (click)="deleteCircular(circular.id)"
+                                        class="bg-red-600 w-8 h-8 rounded-full hover:bg-red-400 flex items-center justify-center">
+                                        <i class="text-white">
+                                            <svg class="h-5 w-5 text-white-500" width="4" height="4" viewBox="0 0 24 24"
+                                                stroke-width="2" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" />
+                                                <line x1="4" y1="7" x2="20" y2="7" />
+                                                <line x1="10" y1="11" x2="10" y2="17" />
+                                                <line x1="14" y1="11" x2="14" y2="17" />
+                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                            </svg>
+                                            <span role="tooltip"
+                                                class="pointer-events-none absolute z-50 inline-flex items-center justify-center rounded-md px-3 py-1 font-semibold opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 bg-stone-50 text-stone-700 min-h-7 text-sm left-1/2 -translate-x-1/2 after:absolute after:block after:size-0 after:border-8 after:border-transparent after:border-t-stone-50 after:-bottom-[0.95rem] after:left-1/2 after:-translate-x-1/2 top-[-2.5rem]">
+                                                Eliminar
+                                            </span>
+                                        </i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </td>
+                    </ng-container>
+                     <!-- Fila de cabecera -->
+                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                     <!-- Fila de datos -->
+                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons aria-label="Seleccionar página" ></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>
+<app-modal [isOpen]="isModalOpen" (closeModal)="closeModal()">
+
+    <app-eco-circular-create (onCloseModal)="closeModal()" [data]="Circular"></app-eco-circular-create>
+
+</app-modal>
+
+<app-modal [isOpen]="isModalDocOpen" (closeModal)="closeModalDoc()">
+
+    <app-eco-circular-reporte (onCloseDocModal)="closeModalDoc()"
+    [ecoCircularId]="ecoCircularId"></app-eco-circular-reporte>
+</app-modal>

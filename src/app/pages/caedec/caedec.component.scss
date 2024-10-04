@@ -1,0 +1,12 @@
+.no-border-table .mat-header-cell,
+.no-border-table .mat-cell {
+    border: none !important;
+}
+
+.no-border-table {
+    border-collapse: collapse;
+}
+
+.no-border-table tr {
+    border: none;
+}

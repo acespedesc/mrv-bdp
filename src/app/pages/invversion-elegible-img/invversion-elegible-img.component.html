@@ -1,0 +1,6 @@
+<div *ngIf="pdfbase64" class="max-w-xs mx-auto p-4 text-center">
+  <img [src]="getImageSrc()" alt="Imagen" class="max-w-full h-auto" />
+  <button (click)="onCloseModalImg.emit()" class="mt-4 px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+    Cerrar
+  </button>
+</div>

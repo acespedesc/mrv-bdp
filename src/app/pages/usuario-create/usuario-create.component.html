@@ -1,0 +1,108 @@
+<h5 class="mb-5 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Ingresar datos</h5>
+<form [formGroup]="dataForm" class="w-full" (ngSubmit)="onSubmit()">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="relative mt-6 flex items-center">
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre" formControlName="nombre"
+                class="peer mt-1 w-96 border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('nombre')?.hasError('required') && dataForm.get('nombre')?.touched}" />
+            <label for="nombre"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Nombre</label>
+            <div *ngIf="dataForm.get('nombre')?.hasError('required') && dataForm.get('nombre')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-6 flex items-center">
+            <input type="text" name="apellido_paterno" id="apellido_paterno" placeholder="Apellido Paterno"
+                formControlName="apellido_paterno"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('apellido_paterno')?.hasError('required') && dataForm.get('apellido_paterno')?.touched}" />
+            <label for="apellido_paterno"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Ap.
+                Paterno</label>
+            <div *ngIf="dataForm.get('apellido_paterno')?.hasError('required') && dataForm.get('apellido_paterno')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-6 flex items-center">
+            <input type="text" name="apellido_materno" id="apellido_materno" placeholder="Apellido Materno"
+                formControlName="apellido_materno"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('apellido_materno')?.hasError('required') && dataForm.get('apellido_materno')?.touched}" />
+            <label for="apellido_materno"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Ap.
+                Materno</label>
+            <div *ngIf="dataForm.get('apellido_materno')?.hasError('required') && dataForm.get('apellido_materno')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-6 flex items-center">
+            <input type="text" name="nro_documento" id="nro_documento" placeholder="nro documento"
+                formControlName="nro_documento"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('nro_documento')?.hasError('required') && dataForm.get('nro_documento')?.touched}" />
+            <label for="nro_documento"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">N°
+                Documento</label>
+            <div *ngIf="dataForm.get('nro_documento')?.hasError('required') && dataForm.get('nro_documento')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-6 flex items-center">
+            <input type="text" name="usuario" id="usuario" placeholder="usuario" formControlName="usuario"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('usuario')?.hasError('required') && dataForm.get('usuario')?.touched}" />
+            <label for="usuario"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Usuario</label>
+            <div *ngIf="dataForm.get('usuario')?.hasError('required') && dataForm.get('usuario')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+        <div class="relative mt-6 flex items-center">
+            <input type="text" name="correo" id="correo" placeholder="correo" formControlName="correo"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('correo')?.hasError('required') && dataForm.get('correo')?.touched}" />
+            <label for="correo"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Correo</label>
+            <div *ngIf="dataForm.get('correo')?.hasError('required') && dataForm.get('correo')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+        <div class="relative mt-6 flex items-center">
+            <input type="password" name="contraseña" id="contraseña" placeholder="contraseña" 
+                formControlName="contraseña"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA"
+                [readonly]="data !== null"
+                [ngClass]="{'border-red-500': dataForm.get('contraseña')?.hasError('required') && dataForm.get('contraseña')?.touched}" />
+            <label for="contraseña"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Contraseña</label>
+            <div *ngIf="dataForm.get('contraseña')?.hasError('required') && dataForm.get('contraseña')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+    </div>
+
+    <div class="my-5">
+        <button type="submit"
+            class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+        <button type="button" (click)="onClose()"
+            class="text-white ms-2 bg-gray-700 hover:bg-gray-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">Cancel</button>
+    </div>
+</form>

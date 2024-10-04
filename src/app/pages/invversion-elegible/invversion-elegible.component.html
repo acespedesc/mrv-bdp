@@ -1,0 +1,177 @@
+<div class="mx-auto sm:px-6 lg:px-8 mb-6">
+    <h2 class="mx-4 pb-6 text-3xl font-bold text-gray-800">
+        <h3 class="mb-5 text-lg font-bold tracking-tight text-gray-900 dark:text-white ">Ingresar Datos de Inversion
+            Elegible</h3>
+    </h2>
+    <div class="border-t-4 border-t-indigo-500 -mt-4 ml-5 w-64"></div>
+</div>
+<form [formGroup]="dataForm" class="w-full" (ngSubmit)="onSubmit()">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+
+        <div class="relative mt-1 flex items-center">
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre" formControlName="nombre"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('nombre')?.hasError('required') && dataForm.get('nombre')?.touched}" />
+            <label for="medida_estandar"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Nombre</label>
+            <div *ngIf="dataForm.get('nombre')?.hasError('required') && dataForm.get('nombre')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-1 flex items-center">
+            <input type="text" name="categoria" id="categoria" placeholder="Categoria" formControlName="categoria"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('categoria')?.hasError('required') && dataForm.get('categoria')?.touched}" />
+            <label for="medida_estandar"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Categoria</label>
+            <div *ngIf="dataForm.get('categoria')?.hasError('required') && dataForm.get('categoria')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-1 flex items-center">
+            <input type="text" name="indicador_efi_ener" id="indicador_efi_ener"
+                placeholder="Tipo o indicador de Energia." formControlName="indicador_efi_ener"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('indicador_efi_ener')?.hasError('required') && dataForm.get('indicador_efi_ener')?.touched}" />
+            <label for="medida_estandar"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Tipo
+                o indicador de Energia.</label>
+            <div *ngIf="dataForm.get('indicador_efi_ener')?.hasError('required') && dataForm.get('indicador_efi_ener')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-1 flex items-center">
+            <input type="text" name="linea_base" id="linea_base" placeholder="linea base" formControlName="linea_base"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('linea_base')?.hasError('required') && dataForm.get('linea_base')?.touched}" />
+            <label for="medida_estandar"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Linea
+                Base</label>
+            <div *ngIf="dataForm.get('linea_base')?.hasError('required') && dataForm.get('linea_base')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-1 flex items-center">
+            <input type="text" name="criterio_elegible" id="criterio_elegible" placeholder="criterio_elegible"
+                formControlName="criterio_elegible"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('criterio_elegible')?.hasError('required') && dataForm.get('criterio_elegible')?.touched}" />
+            <label for="medida_estandar"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Criterio
+                Elegible</label>
+            <div *ngIf="dataForm.get('criterio_elegible')?.hasError('required') && dataForm.get('criterio_elegible')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+
+        
+        <div class="mb-5 flex items-center">
+            <label for="img_elegible" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adjuntar
+                Documento</label>
+            <!-- Asterisco al lado del input -->
+            @if (dataForm.get('img_elegible')?.hasError('required') && dataForm.get('img_elegible')?.touched) {
+            <span class="form-error text-red-500">*</span>
+            }
+            <input type="file" id="img_elegible" (change)="onFileSelected($event)" accept=".jpg"
+                class="form-control mr-2" #contenidoInput>
+
+
+        </div>
+
+    </div>
+    <button type="submit"
+        class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">Guardar</button>
+    <button type="button" (click)="onClose()"
+        class="text-white  ms-2 bg-gray-700 hover:bg-gray-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">Cancelar</button>
+
+</form>
+
+<div class="py-1">
+    <div class="mx-auto sm:px-6 lg:px-8">
+        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 table-auto">
+                    <thead class="bg-blue-500 text-white">
+                        <tr class="text-left text-xs font-bold uppercase">
+                            <th scope="col" class="px-6 py-3">Id</th>
+                            <th scope="col" class="px-6 py-3">Descripcion</th>
+                            <th scope="col" class="px-6 py-3">tipo o indicador de efi.</th>
+                            <th scope="col" class="px-6 py-3 text-center">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 dark:text-gray-400">
+                        @for(invElegible of invElegibles(); track $index){
+                        <tr class="text-sm font-medium text-gray-900">
+                            <td class="px-6 py-4 dark:text-gray-400">{{invElegible.id}}</td>
+                            <td class="px-6 py-4 dark:text-gray-400">{{invElegible.nombre}}</td>
+                            <td class="px-6 py-4 dark:text-gray-400">{{invElegible.indicador_efi_ener}}</td>
+                            <td class="p-3 px-5 flex justify-end">
+                                <div class="group relative inline-block whitespace-nowrap">
+                                    <button (click)="openModalImagen(invElegible.contenidoB64)"
+                                        class="bg-stone-700 w-8 h-8 rounded-full hover:bg-stone-500 flex items-center justify-center ml-2">
+                                        <i class=" text-white">
+                                            <svg class="h-5 w-5 text-white-500" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+                                                <polyline points="13 2 13 9 20 9" />
+                                            </svg>
+                                            <span role="tooltip"
+                                                class="pointer-events-none absolute z-50 inline-flex items-center justify-center rounded-md px-3 py-1 font-semibold opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 bg-stone-50 text-stone-700 min-h-7 text-sm left-1/2 -translate-x-1/2 after:absolute after:block after:size-0 after:border-8 after:border-transparent after:border-t-stone-50 after:-bottom-[0.95rem] after:left-1/2 after:-translate-x-1/2 top-[-2.5rem]">
+                                                Ver Doc.
+                                            </span>
+                                        </i>
+                                    </button>
+                                </div>
+                                <div class="group relative inline-block whitespace-nowrap">
+                                    <button (click)="invElegible.id && deleteInvElegible(invElegible.id)"
+                                        class="bg-red-600 w-8 h-8 rounded-full hover:bg-red-400 ml-2 flex items-center justify-center">
+                                        <i class="text-white">
+                                            <svg class="h-5 w-5 text-white-500" width="4" height="4" viewBox="0 0 24 24"
+                                                stroke-width="2" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" />
+                                                <line x1="4" y1="7" x2="20" y2="7" />
+                                                <line x1="10" y1="11" x2="10" y2="17" />
+                                                <line x1="14" y1="11" x2="14" y2="17" />
+                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                            </svg>
+                                            <span role="tooltip"
+                                                class="pointer-events-none absolute z-50 inline-flex items-center justify-center rounded-md px-3 py-1 font-semibold opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 bg-stone-50 text-stone-700 min-h-7 text-sm left-1/2 -translate-x-1/2 after:absolute after:block after:size-0 after:border-8 after:border-transparent after:border-t-stone-50 after:-bottom-[0.95rem] after:left-1/2 after:-translate-x-1/2 top-[-2.5rem]">
+                                                Eliminar Doc.
+                                            </span>
+                                        </i>
+                                    </button>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<app-modal [isOpen]="isModalImagenOpen" (closeModal)="closeModalImg()">
+    <app-invversion-elegible-img (onCloseModalImg)="closeModalImg()"
+        [pdfbase64]="contenidoB64"></app-invversion-elegible-img>
+</app-modal>

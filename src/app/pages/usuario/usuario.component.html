@@ -1,0 +1,91 @@
+<div >
+    <div class="mx-auto sm:px-6 lg:px-8 mb-6">
+        <h2 class="mx-4 pb-6 text-3xl font-bold text-gray-800">
+            Usuarios(analista)
+        </h2>
+        <div class="border-t-4 border-t-indigo-500 -mt-4 ml-5 w-36"></div>
+    </div>
+    <div class="mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4 dark:bg-gray-800/50 dark:bg-gradient-to-bl">
+            <div class="flex items-center justify-between dark:text-gray-400">
+                <div class="space-x-8 mb-2">
+                    <button type="button" (click)="openModal()"
+                        class="focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-blue-600 hover:bg-blue-800 focus:outline-none rounded">
+                        <p class="text-sm font-medium leading-none text-white">Add Usuario</p>
+                    </button>
+                </div>
+            </div>
+            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                <table class="w-full divide-y divide-gray-200 table-auto">
+                    <thead class="bg-blue-600 text-white">
+                        <tr class="text-left text-xs font-bold  uppercase">
+                            <th scope="col" class="px-6 py-3">Id</th>
+                            <th scope="col" class="px-6 py-3">Usuario</th>
+                            <th scope="col" class="px-6 py-3">nombre</th>
+                            <th scope="col" class="px-6 py-3">correo</th>
+                            <td scope="col" class="px-6 py-3 text-center">Opciones</td>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 dark:text-gray-400">
+                        @for (Usuario of usuarios(); track $index) {
+                        <tr class="text-sm font-medium text-gray-900">
+                            <td class="px-6 py-4 dark:text-gray-400">{{Usuario.id}}</td>
+                            <td class="px-6 py-4 dark:text-gray-400">{{Usuario.usuario}}</td>
+                            <td class="px-6 py-4 dark:text-gray-400">{{Usuario.nombre+' '+Usuario.apellido_paterno+' '+
+                                Usuario.apellido_materno}}</td>
+                            <td class="px-6 py-4 dark:text-gray-400">{{Usuario.correo}}</td>
+                            <td class="p-3 px-5 flex justify-end">
+                                <div class="group relative inline-block whitespace-nowrap">
+                                    <button (click)="Usuario.id && loadUsuario(Usuario)"
+                                        class="bg-gray-700 w-8 h-8 rounded-full hover:bg-gray-400 flex items-center justify-center">
+                                        <i class="fas fa-edit text-white">
+                                            <svg class="h-5 w-5 text-white-500" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                            <span role="tooltip"
+                                                class="pointer-events-none absolute z-50 inline-flex items-center justify-center rounded-md px-3 py-1 font-semibold opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 bg-stone-50 text-stone-700 min-h-7 text-sm left-1/2 -translate-x-1/2 after:absolute after:block after:size-0 after:border-8 after:border-transparent after:border-t-stone-50 after:-bottom-[0.95rem] after:left-1/2 after:-translate-x-1/2 top-[-2.5rem]">
+                                                Editar Usuario
+                                            </span>
+                                        </i>
+                                    </button>
+                                </div>
+                                <div class="group relative inline-block whitespace-nowrap">
+                                    <button (click)="Usuario.id && deleteUsuario(Usuario.id)"
+                                        class="bg-red-600 w-8 h-8 rounded-full hover:bg-red-400 ml-2 flex items-center justify-center">
+                                        <i class="text-white">
+                                            <svg class="h-5 w-5 text-white-500" width="4" height="4"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" />
+                                                <line x1="4" y1="7" x2="20" y2="7" />
+                                                <line x1="10" y1="11" x2="10" y2="17" />
+                                                <line x1="14" y1="11" x2="14" y2="17" />
+                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                            </svg>
+                                            <span role="tooltip"
+                                                class="pointer-events-none absolute z-50 inline-flex items-center justify-center rounded-md px-3 py-1 font-semibold opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 bg-stone-50 text-stone-700 min-h-7 text-sm left-1/2 -translate-x-1/2 after:absolute after:block after:size-0 after:border-8 after:border-transparent after:border-t-stone-50 after:-bottom-[0.95rem] after:left-1/2 after:-translate-x-1/2 top-[-2.5rem]">
+                                                Eliminar Usuario
+                                            </span>
+                                        </i>
+                                    </button>
+                                </div>
+
+                            </td>
+                        </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-modal [isOpen]="isModalOpen" (closeModal)="closeModal()">
+
+    <app-usuario-create (onCloseModal)="closeModal()" [data]="Usuario"></app-usuario-create>
+</app-modal>

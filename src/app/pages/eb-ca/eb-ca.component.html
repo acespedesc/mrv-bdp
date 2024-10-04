@@ -1,0 +1,296 @@
+<h5 class="mb-5 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Ingresar datos para Desarrollo de
+    Proyecto EB-CA</h5>
+<form [formGroup]="dataForm" class="w-full" (ngSubmit)="onSubmit()">
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div class="relative mt-1 flex items-center">
+            <select id="tecnologia"
+                class="peer mt-1 w-96 border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                formControlName="tecnologia" autocomplete="NA" (change)="onTecnologiaChange($event)"
+                [ngClass]="{'border-red-500': dataForm.get('tecnologia')?.hasError('required') && dataForm.get('tecnologia')?.touched}">
+                <option value="" selected>Seleccione tecnologia</option>
+                <option *ngFor="let item of tecnologiaList" [value]="item.value">
+                    {{ item.name }}
+                </option>
+            </select>
+            <label for="tecnologia"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Tecnologia
+            </label>
+            <div *ngIf="dataForm.get('tecnologia')?.hasError('required') && dataForm.get('tecnologia')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="nro_camas" id="nro_camas" placeholder="nro_camas" formControlName="nro_camas"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('nro_camas')?.hasError('required') && dataForm.get('nro_camas')?.touched}" />
+            <label for="nro_camas"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Nro camas[Uni](opcional)</label>
+            <div *ngIf="dataForm.get('nro_camas')?.hasError('required') && dataForm.get('nro_camas')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="factor_ocu" id="factor_ocu" placeholder="factor_ocu" formControlName="factor_ocu"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('factor_ocu')?.hasError('required') && dataForm.get('factor_ocu')?.touched}" />
+            <label for="factor_ocu"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Factor ocupacion[%](opcional)</label>
+            <div *ngIf="dataForm.get('factor_ocu')?.hasError('required') && dataForm.get('factor_ocu')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-1 flex items-center">
+            <select id="region"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                formControlName="region" autocomplete="NA" (change)="onRegionChange($event)"
+                [ngClass]="{'border-red-500': dataForm.get('region')?.hasError('required') && dataForm.get('region')?.touched}">
+                <option value="" selected>Seleccione una region</option>
+                <option *ngFor="let item of regionesInstList" [value]="item.value">
+                    {{ item.name }}
+                </option>
+            </select>
+            <label for="region"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Region de Instalación
+            </label>
+            <div *ngIf="dataForm.get('region')?.hasError('required') && dataForm.get('region')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+        <div class="relative mt-1 flex items-center">
+            <select id="tipo_ser"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                formControlName="tipo_ser" autocomplete="NA" (change)="onTipoServicioChange($event)"
+                [ngClass]="{'border-red-500': dataForm.get('tipo_ser')?.hasError('required') && dataForm.get('tipo_ser')?.touched}">
+                <option value="" selected>Seleccione servicio</option>
+                <option *ngFor="let item of tipoServicioList" [value]="item.value">
+                    {{ item.name }}
+                </option>
+            </select>
+            <label for="tipo_ser"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Tipo servicio
+            </label>
+            <div *ngIf="dataForm.get('tipo_ser')?.hasError('required') && dataForm.get('tipo_ser')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-1 flex items-center">
+            <select id="seg_cli"
+                class="peer mt-1 w-96 border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                formControlName="seg_cli" autocomplete="NA" (change)="onSegCliChange($event)"
+                [ngClass]="{'border-red-500': dataForm.get('seg_cli')?.hasError('required') && dataForm.get('seg_cli')?.touched}">
+                <option value="" selected>Seleccione segmento</option>
+                <option *ngFor="let item of segmentoClienteList" [value]="item.value">
+                    {{ item.name }}
+                </option>
+            </select>
+            <label for="seg_cli"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Segmento cliente
+            </label>
+            <div *ngIf="dataForm.get('seg_cli')?.hasError('required') && dataForm.get('seg_cli')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+
+
+
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="nro_col_sol" id="factor_ocu" placeholder="factor_ocu"
+                formControlName="nro_col_sol"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('nro_col_sol')?.hasError('required') && dataForm.get('nro_col_sol')?.touched}" />
+            <label for="nro_col_sol"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                N° Colectores Solares [Unidades]</label>
+            <div *ngIf="dataForm.get('nro_col_sol')?.hasError('required') && dataForm.get('nro_col_sol')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="temp_ini_agua" id="temp_ini_agua" placeholder="temp_ini_agua"
+                formControlName="temp_ini_agua"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('temp_ini_agua')?.hasError('required') && dataForm.get('temp_ini_agua')?.touched}" />
+            <label for="temp_ini_agua"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Temperatura inicial Agua [°C]</label>
+            <div *ngIf="dataForm.get('temp_ini_agua')?.hasError('required') && dataForm.get('temp_ini_agua')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="temp_fin_agua" id="temp_fin_agua" placeholder="temp_fin_agua"
+                formControlName="temp_fin_agua"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('temp_fin_agua')?.hasError('required') && dataForm.get('temp_fin_agua')?.touched}" />
+            <label for="temp_fin_agua"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Temperatura final Agua [°C]</label>
+            <div *ngIf="dataForm.get('temp_fin_agua')?.hasError('required') && dataForm.get('temp_fin_agua')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="area_col_sol" id="area_col_sol" placeholder="area_col_sol"
+                formControlName="area_col_sol"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('area_col_sol')?.hasError('required') && dataForm.get('area_col_sol')?.touched}" />
+            <label for="area_col_sol"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Area Colector Solar [m2]</label>
+            <div *ngIf="dataForm.get('area_col_sol')?.hasError('required') && dataForm.get('area_col_sol')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="calor_esp_agua" id="calor_esp_agua" placeholder="calor_esp_agua"
+                formControlName="calor_esp_agua"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('calor_esp_agua')?.hasError('required') && dataForm.get('calor_esp_agua')?.touched}" />
+            <label for="calor_esp_agua"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Calor Especifico del Agua [°C]</label>
+            <div *ngIf="dataForm.get('calor_esp_agua')?.hasError('required') && dataForm.get('calor_esp_agua')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="vida_util_c" id="vida_util_c" placeholder="vida_util_c"
+                formControlName="vida_util_c"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('vida_util_c')?.hasError('required') && dataForm.get('vida_util_c')?.touched}" />
+            <label for="vida_util_c"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Vida Util [años]</label>
+            <div *ngIf="dataForm.get('vida_util_c')?.hasError('required') && dataForm.get('vida_util_c')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="efi_reg_elec" id="efi_reg_elec" placeholder="efi_reg_elec"
+                formControlName="efi_reg_elec"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('efi_reg_elec')?.hasError('required') && dataForm.get('efi_reg_elec')?.touched}" />
+            <label for="efi_reg_elec"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Eficiencia Regaderas Electricas[%]</label>
+            <div *ngIf="dataForm.get('efi_reg_elec')?.hasError('required') && dataForm.get('efi_reg_elec')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="con_ener_anual" id="con_ener_anual" placeholder="con_ener_anual"
+                formControlName="con_ener_anual"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('con_ener_anual')?.hasError('required') && dataForm.get('con_ener_anual')?.touched}" />
+            <label for="con_ener_anual"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Consumo Energeticvo Anual [kWh/año]</label>
+            <div *ngIf="dataForm.get('con_ener_anual')?.hasError('required') && dataForm.get('con_ener_anual')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="por_aho_anual" id="por_aho_anual" placeholder="por_aho_anual"
+                formControlName="por_aho_anual"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('por_aho_anual')?.hasError('required') && dataForm.get('por_aho_anual')?.touched}" />
+            <label for="por_aho_anual"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Porcentaje Ahorro Anual [%]</label>
+            <div *ngIf="dataForm.get('por_aho_anual')?.hasError('required') && dataForm.get('por_aho_anual')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="aho_ener_anual" id="aho_ener_anual" placeholder="aho_ener_anual"
+                formControlName="aho_ener_anual"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('aho_ener_anual')?.hasError('required') && dataForm.get('aho_ener_anual')?.touched}" />
+            <label for="aho_ener_anual"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Ahorro enregia anual [kWh/año]</label>
+            <div *ngIf="dataForm.get('aho_ener_anual')?.hasError('required') && dataForm.get('aho_ener_anual')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="" id="aho_ener_total" placeholder="aho_ener_total"
+                formControlName="aho_ener_total"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('aho_ener_total')?.hasError('required') && dataForm.get('aho_ener_total')?.touched}" />
+            <label for="aho_ener_total"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Ahorro enregia total [kWh]</label>
+            <div *ngIf="dataForm.get('aho_ener_total')?.hasError('required') && dataForm.get('aho_ener_total')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="" id="red_emi_anual" placeholder="red_emi_anual" formControlName="red_emi_anual"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('red_emi_anual')?.hasError('required') && dataForm.get('red_emi_anual')?.touched}" />
+            <label for="red_emi_anual"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Reducción de emisiones anuales [kWh]</label>
+            <div *ngIf="dataForm.get('red_emi_anual')?.hasError('required') && dataForm.get('red_emi_anual')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+    </div>
+
+
+    <div class="my-5">
+        <button type="submit"
+            class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">Confirmar</button>
+        <button type="button" (click)="onClose()"
+            class="text-white ms-2 bg-gray-700 hover:bg-gray-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">Cancel</button>
+    </div>
+</form>

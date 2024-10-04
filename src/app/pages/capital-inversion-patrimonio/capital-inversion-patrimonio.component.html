@@ -1,0 +1,203 @@
+<h5 class="mb-5 text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+    Análisis de la capacidad productiva total anual de la unidad productiva.</h5>
+<form [formGroup]="dataForm" class="w-full" (ngSubmit)="onSubmit()">
+
+    <div class="border rounded-lg p-4 bg-gray shadow-md">
+        <div class="relative mt-2 flex items-center">
+            <select id="metodo_est"
+                class="peer mt-1 w-96 border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-gray rounded-md text-sm"
+                formControlName="metodo_est" autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('metodo_est')?.hasError('required') && dataForm.get('metodo_est')?.touched}">
+
+                <option *ngFor="let item of metodoEstimacionList" [value]="item.value">
+                    {{ item.name }}
+                </option>
+            </select>
+            <label for="metodo_est"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Elija el metodo de estimación
+            </label>
+            <div *ngIf="dataForm.get('metodo_est')?.hasError('required') && dataForm.get('metodo_est')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+        <div class="relative mt-1 flex items-center">
+            <label for="contenido" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adjuntar
+                Documento de calculo aux.</label>
+            <div class="mb-5 flex items-center">
+
+                <!-- Asterisco al lado del input -->
+                @if (dataForm.get('contenido')?.hasError('required') && dataForm.get('contenido')?.touched) {
+                <span class="form-error text-red-500">*</span>
+                }
+                <input type="file" id="contenido" (change)="onFileSelected($event)" accept=".pdf" formControlName="contenido"
+                    class="form-control mr-2" #contenidoInput>
+
+
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        
+        <div class="relative mt-6 flex items-center">
+            <input type="number" name="patri_uni_prod" id="patri_uni_prod" placeholder="patri_uni_prod"
+                formControlName="patri_uni_prod"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('patri_uni_prod')?.hasError('required') && dataForm.get('patri_uni_prod')?.touched}" />
+            <label for="patri_uni_prod"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Patrimonio de la Unidad Productiva (Bs):</label>
+            <div *ngIf="dataForm.get('patri_uni_prod')?.hasError('required') && dataForm.get('patri_uni_prod')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+        <div class="relative mt-6 flex items-center">
+            <select id="tipo_inv"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-gray rounded-md text-sm"
+                formControlName="tipo_inv" autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('tipo_inv')?.hasError('required') && dataForm.get('tipo_inv')?.touched}">
+
+                <option *ngFor="let item of otroTipoInversionList" [value]="item.value">
+                    {{ item.name }}
+                </option>
+            </select>
+            <label for="tipo_inv"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Elija el Tipo de Inversión
+            </label>
+            <div *ngIf="dataForm.get('tipo_inv')?.hasError('required') && dataForm.get('tipo_inv')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+    </div>
+    <table class="min-w-full bg-gray border border-gray-300">
+        <thead>
+            <tr>
+                <th class="py-2 px-4 border-b">Clase de Residuos</th>
+                <th class="py-2 px-4 border-b">Tipo de Residuos</th>
+                <th class="py-2 px-4 border-b">Capacidad de procesamiento de residuos (t/año)</th>
+            </tr>
+        </thead>
+        <tbody formArrayName="residuos">
+            <tr *ngFor="let control of residuos.controls; let i = index" [formGroupName]="i">
+                <td class="py-1 px-4 border-b">
+                    <div class="relative mt-1 flex items-center">
+                        <select id="clase"
+                            class="peer mt-1 w-64 border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                            formControlName="clase" autocomplete="NA" (change)="onTipoResiduoChange($event, i)"
+                            [ngClass]="{'border-red-500': dataForm.get('clase')?.hasError('required') && dataForm.get('clase')?.touched}">
+                            <option value="" selected>Seleccione la clase</option>
+                            <option *ngFor="let item of residuoList" [value]="item.value">
+                                {{ item.name }}
+                            </option>
+                        </select>
+                        <label for="clase"
+                            class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                            Clase de Residuo
+                        </label>
+                        <div *ngIf="dataForm.get('clase')?.hasError('required') && dataForm.get('clase')?.touched"
+                            class="absolute -right-4 text-red-500">
+                            *
+                        </div>
+                    </div>
+
+
+                </td>
+                <td class="py-1 px-4 border-b">
+
+                    <div class="relative mt-1 flex items-center">
+                        <select id="fac_emi_tipo_res"
+                            class="peer mt-1 w-64 border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                            formControlName="fac_emi_tipo_res" autocomplete="NA"
+                            [ngClass]="{'border-red-500': dataForm.get('fac_emi_tipo_res')?.hasError('required') && dataForm.get('fac_emi_tipo_res')?.touched}">
+                            <option value="" selected>Seleccione Tipo Residuo</option>
+                            <option *ngFor="let item of facEmiTipoResList[i]" [value]="item.value">
+                                {{ item.name }}
+                            </option>
+                        </select>
+                        <label for="fac_emi_tipo_res"
+                            class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                            Tipo de Residuo
+                        </label>
+                        <div *ngIf="dataForm.get('fac_emi_tipo_res')?.hasError('required') && dataForm.get('fac_emi_tipo_res')?.touched"
+                            class="absolute -right-4 text-red-500">
+                            *
+                        </div>
+                    </div>
+
+                </td>
+                <td class="py-1 px-4 border-b">
+
+                    <div class="relative mt-1 flex items-center">
+                        <input type="number" name="ctd_residuo" id="ctd_residuo" placeholder="ctd_residuo"
+                            formControlName="ctd_residuo"
+                            class="peer mt-1 w-64 border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                            autocomplete="NA" step="0.01"
+                            [ngClass]="{'border-red-500': dataForm.get('ctd_residuo')?.hasError('required') && dataForm.get('ctd_residuo')?.touched}" />
+                        <label for="ctd_residuo"
+                            class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Cantidad
+                            Residuo</label>
+                        <div *ngIf="dataForm.get('ctd_residuo')?.hasError('required') && dataForm.get('ctd_residuo')?.touched"
+                            class="absolute -right-4 text-red-500">
+                            *
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+
+        <div class="relative mt-6 flex items-center">
+            <input type="number" name="ctd_res_ceciclaods_ton" id="ctd_res_ceciclaods_ton"
+                placeholder="ctd_res_ceciclaods_ton" formControlName="ctd_res_ceciclaods_ton"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('ctd_res_ceciclaods_ton')?.hasError('required') && dataForm.get('ctd_res_ceciclaods_ton')?.touched}" />
+            <label for="ctd_res_ceciclaods_ton"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Cantidad de residuos reciclados (t/año) </label>
+            <div *ngIf="dataForm.get('ctd_res_ceciclaods_ton')?.hasError('required') && dataForm.get('ctd_res_ceciclaods_ton')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-6 flex items-center">
+            <input type="number" name="emi_gei_evi" id="emi_gei_evi" placeholder="emi_gei_evi"
+                formControlName="emi_gei_evi"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('emi_gei_evi')?.hasError('required') && dataForm.get('emi_gei_evi')?.touched}" />
+            <label for="emi_gei_evi"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Emisiones de GEI evitadas (t CO2eq/año) </label>
+            <div *ngIf="dataForm.get('emi_gei_evi')?.hasError('required') && dataForm.get('emi_gei_evi')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+       
+    </div>
+
+
+
+
+    <div class="my-5">
+        <button type="submit"
+            class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">Confirmar</button>
+        <button type="button" (click)="onClose()"
+            class="text-white ms-2 bg-gray-700 hover:bg-gray-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">Cancel</button>
+    </div>
+</form>

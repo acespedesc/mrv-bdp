@@ -1,0 +1,352 @@
+<h5 class="mb-5 text-lg font-bold tracking-tight text-gray-900 dark:text-white ">Ingresar datos</h5>
+<form [formGroup]="dataForm" class="w-full" (ngSubmit)="onSubmit()">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="relative mt-1 flex items-center">
+            <select id="regionId"
+                class="peer mt-1 w-96 border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                formControlName="regionId" autocomplete="NA" (change)="onRegionChange($event)"
+                [ngClass]="{'border-red-500': dataForm.get('regionId')?.hasError('required') && dataForm.get('regionId')?.touched}">
+                <option value="" selected>Seleccione la region</option>
+                <option *ngFor="let item of regionList" [value]="item.value">
+                    {{ item.name }}
+                </option>
+            </select>
+            <label for="regionId"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Región
+            </label>
+            <div *ngIf="dataForm.get('regionId')?.hasError('required') && dataForm.get('regionId')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+        <div class="relative mt-1 flex items-center">
+            <select id="agencia"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                formControlName="agencia" autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('agencia')?.hasError('required') && dataForm.get('agencia')?.touched}">
+                <option value="" selected>Seleccione la agencia</option>
+                <option *ngFor="let item of agenciaList" [value]="item.value">
+                    {{ item.name }}
+                </option>
+            </select>
+            <label for="agencia"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Agencia
+            </label>
+            <div *ngIf="dataForm.get('agencia')?.hasError('required') && dataForm.get('agencia')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="relative mt-1 flex items-center">
+            <input type="text" name="nro_solicitud" id="nro_solicitud" placeholder="nro_solicitud"
+                formControlName="nro_solicitud"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('nro_solicitud')?.hasError('required') && dataForm.get('nro_solicitud')?.touched}" />
+            <label for="nro_solicitud"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Nro solicitud</label>
+            <div *ngIf="dataForm.get('nro_solicitud')?.hasError('required') && dataForm.get('nro_solicitud')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-1 flex items-center">
+            <!-- Campo de búsqueda -->
+            <input type="text" [formControl]="searchTermControl" id="nivel_medida" placeholder="Buscar caedec..."
+                name="nivel_medida" formControlName="nivel_medida"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                (focus)="showDropdown = true" (blur)="hideDropdown()" autocomplete="off"
+                [ngClass]="{'border-red-500': dataForm.get('nivel_medida')?.hasError('required') && dataForm.get('nivel_medida')?.touched}" />
+            <label for="nivel_medida"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Buscar caedec...</label>
+            <div *ngIf="dataForm.get('nivel_medida')?.hasError('required') && dataForm.get('nivel_medida')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+
+            <!-- Dropdown de sugerencias -->
+            <ul *ngIf="showDropdown && filteredItems.length > 0"
+                class="absolute z-20 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg"
+                (mousedown)="dropdownClicked = true"
+                style="max-height: 200px; overflow-y: auto; top: calc(100% + 4px);">
+                <li *ngFor="let item of filteredItems"
+                    class="p-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100" (click)="selectItem(item)">
+                    {{ item.nombre }}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="relative mt-1 flex items-center">
+            <select id="respaldo"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                formControlName="respaldo" autocomplete="NA"
+                [ngClass]="{'border-red-500': dataForm.get('respaldo')?.hasError('required') && dataForm.get('respaldo')?.touched}">
+
+                <option *ngFor="let item of respaldoList" [value]="item.value">
+                    {{ item.name }}
+                </option>
+            </select>
+            <label for="respaldo"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Respaldo
+            </label>
+            <div *ngIf="dataForm.get('respaldo')?.hasError('required') && dataForm.get('respaldo')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="monto_inv_mn" id="monto_inv_mn" placeholder="Monto de Credito(BS)"
+                formControlName="monto_inv_mn"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('monto_inv_mn')?.hasError('required') && dataForm.get('monto_inv_mn')?.touched}" />
+            <label for="monto_inv_mn"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Monto
+                de Credito(BS)</label>
+            <div *ngIf="dataForm.get('monto_inv_mn')?.hasError('required') && dataForm.get('monto_inv_mn')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="tipo_cambio" id="tipo_cambio" placeholder="Tipo de Cambio"
+                formControlName="tipo_cambio"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01" value="6.96"
+                [ngClass]="{'border-red-500': dataForm.get('tipo_cambio')?.hasError('required') && dataForm.get('tipo_cambio')?.touched}" />
+            <label for="monto_inv_mn"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Tipo
+                de Cambio</label>
+            <div *ngIf="dataForm.get('tipo_cambio')?.hasError('required') && dataForm.get('tipo_cambio')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-1 flex items-center">
+            <input type="number" name="monto_inv_me" id="monto_inv_me" placeholder="Monto de Credito(USD)"
+                formControlName="monto_inv_me"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                autocomplete="NA" step="0.01"
+                [ngClass]="{'border-red-500': dataForm.get('monto_inv_me')?.hasError('required') && dataForm.get('monto_inv_me')?.touched}" />
+            <label for="monto_inv_mn"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Monto
+                de Credito(USD)</label>
+            <div *ngIf="dataForm.get('monto_inv_me')?.hasError('required') && dataForm.get('monto_inv_me')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="relative mt-1 flex items-center">
+            <select id="subcategoria"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                formControlName="subcategoria" autocomplete="NA" (change)="onSubcategoriaChange($event)"
+                [ngClass]="{'border-red-500': dataForm.get('subcategoria')?.hasError('required') && dataForm.get('subcategoria')?.touched}">
+                <option value="" selected>Seleccione subcategoría</option>
+                <option *ngFor="let item of subcategoriaList" [value]="item.value">
+                    {{ item.name }}
+                </option>
+            </select>
+            <label for="subcategoria"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Subcategoria
+            </label>
+            <div *ngIf="dataForm.get('subcategoria')?.hasError('required') && dataForm.get('subcategoria')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+        </div>
+
+        <div class="relative mt-1 flex items-center">
+            <select id="tipo_tecnologia"
+                class="peer mt-1 w-full border-b-2 border-gray-300 px-2 py-1.5 bg-gray-100 placeholder:text-transparent focus:border-gray-500 focus:outline-none focus:bg-white rounded-md text-sm"
+                formControlName="tipo_tecnologia" autocomplete="NA" (change)="onTipoTecnologiaChange($event)"
+                [ngClass]="{'border-red-500': dataForm.get('tipo_tecnologia')?.hasError('required') && dataForm.get('tipo_tecnologia')?.touched}">
+
+                <option value="" selected>Seleccione tecnologia</option>
+                <option *ngFor="let item of inversionElegibleList" [value]="item.value">
+                    {{ item.name }}
+                </option>
+            </select>
+            <label for="tipo_tecnologia"
+                class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">
+                Inversión Elegible
+            </label>
+            <div *ngIf="dataForm.get('tipo_tecnologia')?.hasError('required') && dataForm.get('tipo_tecnologia')?.touched"
+                class="absolute -right-4 text-red-500">
+                *
+            </div>
+
+
+        </div>
+
+        <div *ngIf="selectedImage" class="col-span-1 md:col-span-2 mt-1 flex items-center space-x-4">
+            <img [src]="'data:image/jpeg;base64,' + selectedImage" alt="Imagen seleccionada"
+                class="w-32 h-32 md:w-48 md:h-48 object-cover" />
+            <div class="flex flex-col max-w-xs">
+                <p class="text-lg mb-3">
+                    <span class="font-bold">Categoría:</span> {{ selectedCategory }}
+                </p>
+                <p class="text-lg mb-2">
+                    <span class="font-bold">Tipo de Energía:</span> {{ selectedIndicadorEfiEner }}
+                </p>
+                <p class="text-lg mb-2">
+                    <span class="font-bold">Línea Base:</span> {{ selectedLineaBase }}
+                </p>
+                <p class="text-lg">
+                    <span class="font-bold">Criterio de Elegibilidad:</span> {{ selectedCriterioElegible }}
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="p-1 bg-gray rounded-lg shadow-lg border border-gray-300 opacity-90">
+        <h2 class="text-gray-800 mb-4">Objetivos de Desarrollo Sostenible (ODS) a los que aporta</h2>
+        <div class="grid grid-cols-7 gap-2">
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check1" formControlName="fin_pobreza"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods1.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check2" formControlName="hambre_cero"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods2.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check3" formControlName="salud_bienestar"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods3.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check4" formControlName="educacion_calidad"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods4.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check5" formControlName="igualdad_genero"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods5.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check6" formControlName="agua_limp_sanea"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods6.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check7" formControlName="enr_ase_nocon"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods7.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check8" formControlName="trab_dec_creeco"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods8.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check9" formControlName="ind_ino_inf"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods9.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check10" formControlName="reduc_desig"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods10.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check11" formControlName="ciu_com_sos"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods11.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check12" formControlName="prod_con_res"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods12.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check13" formControlName="acc_por_cli"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods13.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check14" formControlName="vida_sub"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods14.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check15" formControlName="vida_eco_terr"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods15.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check16" formControlName="paz_jus_instsol"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods16.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+            <div class="flex items-center space-x-2">
+                <input type="checkbox" id="image-check17" formControlName="ali_lograr_obj"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <img src="assets/ods17.png" alt="Descripción de la imagen"
+                    class="h-12 w-12 object-cover rounded-lg shadow-lg opacity-75">
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="my-5">
+        <button type="submit"
+            class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">Siguiente</button>
+        <button type="button" (click)="onClose()"
+            class="text-white ms-2 bg-gray-700 hover:bg-gray-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">Cancel</button>
+    </div>
+</form>
+
+<app-modal [isOpen]="isModalEbFvOpen" (closeModal)="closeModalEB_FV()">
+    <app-eb-fv (onCloseModalEbFv)="closeModalEB_FV()"  [dataOds]="ods"  [montoInvMe]="MontoInvUSD" [MontoInvBS]="MontoInvBS" [regionId]="regionId"  [agenciaId]="agenciaId"  [nroSolicitud]="nroSolicitud" [caedecId] ="caedecId" [respaldo]="respaldo" [subcategoriaId]="subcategoriaId" [inversionElegibleId] ="inversionElegibleId"></app-eb-fv>
+</app-modal>
+
+<app-modal [isOpen]="isModalEbSbOpen" (closeModal)="closeModalEB_SB()" >
+    <app-eb-sb (onCloseModalEbSb)="closeModalEB_SB()" [dataOds]="ods" [montoInvMe]="MontoInvUSD" [MontoInvBS]="MontoInvBS" [regionId]="regionId"  [agenciaId]="agenciaId"  [nroSolicitud]="nroSolicitud" [caedecId] ="caedecId" [respaldo]="respaldo" [subcategoriaId]="subcategoriaId" [inversionElegibleId] ="inversionElegibleId"></app-eb-sb>
+</app-modal>
+
+<app-modal [isOpen]="isModalEbCaOpen" (closeModal)="closeModalEB_CA()">
+    <app-eb-ca (onCloseModalEbCa)="closeModalEB_CA()" [dataOds]="ods" [montoInvMe]="MontoInvUSD" [MontoInvBS]="MontoInvBS" [regionId]="regionId"  [agenciaId]="agenciaId"  [nroSolicitud]="nroSolicitud" [caedecId] ="caedecId" [respaldo]="respaldo" [subcategoriaId]="subcategoriaId" [inversionElegibleId] ="inversionElegibleId"></app-eb-ca>
+</app-modal>

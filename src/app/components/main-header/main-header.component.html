@@ -1,0 +1,22 @@
+<nav class="p-4 text-white bg-transparent shadow-md">
+    <div class="container flex items-center justify-between mx-auto">
+      <!-- Logo -->
+      <a class="flex items-center">
+        <img src="/assets/BDP_Logo.svg" alt="BDP_Logo" class="h-8 mr-3"> <!-- Ajusta la altura según sea necesario -->
+        
+      </a>
+      
+      <!-- Espacio para otros enlaces o contenido central -->
+      <div class="flex-1 flex justify-center">
+        <!-- Puedes agregar contenido central aquí si es necesario -->
+        <a class="mr-6 cursor-pointer text-gray-500 font-bold m-3 hover:text-gray-200">{{ this.usuario }}</a>
+      </div>
+  
+      <!-- Enlaces de navegación -->
+      <div class="flex items-center">
+        <a routerLink="/login"
+           class="mr-6 cursor-pointer text-gray-500 font-bold m-3 hover:text-gray-200">Login</a>
+        <a (click)="logout()" class="mr-6 cursor-pointer text-gray-500 font-bold m-3 hover:text-gray-200">Logout</a>
+      </div>
+    </div>
+  </nav>
