@@ -31,9 +31,12 @@ export class UsuarioCreateComponent {
       contraseña: new FormControl('', [Validators.required]),
 
     });
+
+    
   }
 
   ngOnChanges(): void {
+   
     if (this.data) {
       this.dataForm.patchValue({
         nombre: this.data.nombre,

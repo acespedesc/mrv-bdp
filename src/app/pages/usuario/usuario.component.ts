@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
 })
 export default class UsuarioComponent {
   usuarios = signal<Usuario[]>([]);
-  Usuario!:Usuario;
+  Usuario:Usuario | null=null;
 
   usuService=inject(UsuarioService);
   private toastr = inject(ToastrService);
